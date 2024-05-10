@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* Global styles */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        :root {
+            --third-color: #333;
+            --blue-color: #007bff;
+            --fourth-color: blueviolet;
+        }
+
+
+        /* Menu styling */
+        .menu-container {
+            width: 100%;
+            max-width: 1152px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .nav-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-wrapper ul.nav-list {
+            list-style-type: none;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin: 0;
+        }
+
+        .nav-wrapper ul.nav-list li {
+            position: relative;
+        }
+
+        .nav-wrapper ul.nav-list li a {
+            color: var(--third-color);
+            text-decoration: none;
+            letter-spacing: 1px;
+            transition: all 0.5s ease-in-out;
+            padding: 10px;
+        }
+
+        .nav-wrapper ul.nav-list li a:hover,
+        .nav-wrapper ul.nav-list li.active a {
+            color: var(--blue-color);
+        }
+
+        nav ul.dropdown-list {
+            list-style-type: none;
+            display: none;
+            position: absolute;
+            background: whitesmoke;
+            padding: 6px 16px;
+            width: max-content;
+            z-index: 9999;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .nav-wrapper ul.dropdown-list li {
+            margin-left: 0;
+            padding: 5px 0;
+        }
+
+        .nav-wrapper ul.dropdown-list li a {
+            color: var(--third-color);
+        }
+
+        .nav-wrapper ul.nav-list li:hover .dropdown-list {
+            display: block;
+            opacity: 1;
+            pointer-events: auto;
+            animation: moveUp 0.5s ease-in-out forwards;
+        }
+
+        .nav-wrapper .nav-list li .btn {
+            padding: 10px;
+        }
+
+        .nav-wrapper .nav-list li .btn a {
+            color: var(--fourth-color);
+        }
+
+        .nav-wrapper .nav-list li .btn:hover a {
+            color: var(--third-color);
+        }
+
+        .nav-list {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #fff;
+            width: 100%;
+            z-index: 999;
+        }
+
+        .mobile .nav-wrapper.open .nav-list {
+            display: block;
+        }
+
+        /* Responsive menu */
+        .hamberger {
+            display: none;
+        }
+
+        @media only screen and (max-width: 860px) {
+            .nav-wrapper ul.nav-list {
+                display: none;
+            }
+
+            .hamberger {
+                display: flex;
+                flex-direction: column;
+                padding: 20px 100px;
+                cursor: pointer;
+            }
+
+            .hamberger span {
+                background: var(--third-color);
+                width: 28px;
+                height: 2px;
+                margin-bottom: 8px;
+            }
+
+
+            .mobile .nav-wrapper ul li {
+                text-align: center;
+            }
+
+            .nav-wrapper ul.dropdown-list {
+                position: relative;
+                background: transparent;
+                text-align: center;
+                height: auto;
+                overflow: hidden;
+                transition: height 0.3s ease-in-out;
+                padding-top: 0;
+            }
+
+            .nav-wrapper ul.nav-list.open {
+                display: flex;
+            }
+
+            .mobile .nav-wrapper ul.dropdown-list li a {
+                color: #7f8fa6;
+            }
+
+            .mobile .nav-wrapper ul.dropdown-list li a:hover {
+                color: var(--third-color);
+
+            }
+
+            .nav-wrapper ul.nav-list.vertical {
+                flex-direction: column;
+            }
+
+        }
+
+
+        @media only screen and (min-width: 860px) {
+            .nav-list {
+                display: flex;
+                position: static;
+                background-color: transparent;
+            }
+
+            .nav-wrapper.open .nav-list {
+                display: block;
+            }
+        }
+
+        @media only screen and (max-width: 860px) {
+            .nav-wrapper {
+                position: relative;
+            }
+
+            .nav-wrapper .nav-list {
+                position: absolute;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <div class="menu-container nav-wrapper">
+            <div class="brand">
+                <a class="active" href="index.html">
+                    <img src="logo.png" alt="insurance-logo" width="180" border="0">
+                </a>
+            </div>
+
+            <div class="hamberger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <ul class="nav-list">
+                <li><a href="#">Services</a>
+                    <ul class="dropdown-list">
+                        <li><a href="#">Service 1</a></li>
+                        <li><a href="#">Service 2</a></li>
+                        <li><a href="#">Service 3</a></li>
+                        <li><a href="#">Service 4</a></li>
+                        <li><a href="#">Service 5</a></li>
+                        <li><a href="#">Service 6</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">Careers</a></li>
+                <li><a href="products.html">News</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contacts</a></li>
+                <li>
+                    <button class="btn btn-blue">
+                        <a href="#">Get Started</a>
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <script>
+        window.addEventListener("load", function () {
+            addRequiredClasses();
+        });
+
+        function addRequiredClasses() {
+            if (window.innerWidth < 860) {
+                document.body.classList.add('mobile');
+            } else {
+                document.body.classList.remove('mobile');
+            }
+        }
+
+        let hamberger = document.querySelector('.hamberger');
+        let mobileNav = document.querySelector('.nav-list');
+
+        let bars = document.querySelectorAll('.hamberger span');
+
+        let isActive = false;
+
+        hamberger.addEventListener('click', function () {
+            mobileNav.classList.toggle('open'); 
+
+            if (!isActive) {
+                mobileNav.classList.add('vertical');
+                bars[0].style.transform = 'rotate(45deg)';
+                bars[1].style.opacity = '0';
+                bars[2].style.transform = 'rotate(-45deg)';
+                isActive = true;
+            } else {
+                mobileNav.classList.remove('vertical'); 
+                bars[0].style.transform = 'rotate(0deg)';
+                bars[1].style.opacity = '1';
+                bars[2].style.transform = 'rotate(0deg)';
+                isActive = false;
+            }
+        });
+
+    </script>
+
+</body>
+
+</html>
